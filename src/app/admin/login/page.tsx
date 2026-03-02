@@ -2,6 +2,7 @@
 
 import { useState, FormEvent } from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 import { Eye, EyeOff, Lock } from "lucide-react";
 
 export default function AdminLoginPage() {
@@ -41,9 +42,16 @@ export default function AdminLoginPage() {
       <div className="w-full max-w-sm">
         {/* Logo */}
         <div className="text-center mb-10">
-          <h1 className="text-3xl font-bold text-white tracking-tight">
-            AWSM<span className="font-light"> GROUP</span>
-          </h1>
+          <div className="flex justify-center mb-2">
+            <Image
+              src="/logo.png"
+              alt="AWSM GROUP"
+              width={160}
+              height={54}
+              className="h-12 w-auto object-contain"
+              priority
+            />
+          </div>
           <p className="text-sm text-white/40 mt-2">Admin Panel</p>
         </div>
 

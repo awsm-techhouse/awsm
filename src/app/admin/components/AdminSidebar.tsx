@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import {
   LayoutDashboard,
@@ -35,11 +36,15 @@ export default function AdminSidebar() {
     <aside className="w-64 min-h-screen bg-black flex flex-col shrink-0">
       {/* Brand */}
       <div className="px-6 py-6 border-b border-white/10">
-        <Link href="/admin/portfolio">
-          <h1 className="text-lg font-bold text-white tracking-tight">
-            AWSM <span className="font-light">Admin</span>
-          </h1>
-          <p className="text-xs text-white/30 mt-0.5">Content Management</p>
+        <Link href="/admin/portfolio" className="flex flex-col gap-1">
+          <Image
+            src="/logo.png"
+            alt="AWSM GROUP"
+            width={110}
+            height={36}
+            className="h-7 w-auto object-contain"
+          />
+          <p className="text-xs text-white/30">Content Management</p>
         </Link>
       </div>
 

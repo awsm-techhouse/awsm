@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useI18n } from "@/lib/i18n";
 import { divisions } from "@/lib/data";
 
@@ -15,9 +16,15 @@ export default function Footer() {
         <div className="flex flex-col md:flex-row justify-between gap-12 mb-16">
           {/* Brand */}
           <div className="max-w-xs">
-            <h2 className="text-2xl font-semibold tracking-tight mb-3">
-              AWSM <span className="font-light">GROUP</span>
-            </h2>
+            <div className="mb-4">
+              <Image
+                src="/logo.png"
+                alt="AWSM GROUP"
+                width={130}
+                height={44}
+                className="h-9 w-auto object-contain"
+              />
+            </div>
             <p className="text-sm text-white/50 leading-relaxed">
               {t("footer.tagline")}
             </p>

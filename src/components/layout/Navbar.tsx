@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { useI18n } from "@/lib/i18n";
 import { Menu, X } from "lucide-react";
 
@@ -34,13 +35,15 @@ export default function Navbar() {
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-8 flex items-center justify-between h-16">
         {/* Logo */}
-        <Link
-          href="/"
-          className={`text-xl font-semibold tracking-tight transition-colors ${
-            scrolled ? "text-black" : "text-white"
-          }`}
-        >
-          AWSM<span className="font-light"> GROUP</span>
+        <Link href="/" className="flex items-center">
+          <Image
+            src={scrolled ? "/logoblack.png" : "/logo.png"}
+            alt="AWSM GROUP"
+            width={120}
+            height={40}
+            className="h-8 w-auto object-contain transition-all duration-300"
+            priority
+          />
         </Link>
 
         {/* Desktop Nav */}

@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 import { useI18n } from "@/lib/i18n";
 import { ArrowDown } from "lucide-react";
 
@@ -32,15 +33,22 @@ export default function Hero() {
         >
         </motion.p>
 
-        {/* Title */}
-        <motion.h1
+        {/* Logo */}
+        <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.4 }}
-          className="text-7xl md:text-9xl lg:text-[10rem] font-bold text-white leading-none tracking-tight mb-8"
+          className="flex justify-center mb-8"
         >
-          {t("hero.title")}
-        </motion.h1>
+          <Image
+            src="/logo.png"
+            alt="AWSM GROUP"
+            width={480}
+            height={160}
+            className="w-64 md:w-96 lg:w-[480px] h-auto object-contain"
+            priority
+          />
+        </motion.div>
 
         {/* Subtitle */}
         <motion.p
