@@ -1,6 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
-import { writeFile, mkdir } from "fs/promises";
-import path from "path";
+import { v2 as cloudinary } from "cloudinary";
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
 export async function POST(req: NextRequest) {
   try {
@@ -16,26 +21,27 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "File harus berupa gambar" }, { status: 400 });
     }
 
-    // Validate size (5MB)
-    if (file.size > 5 * 1024 * 1024) {
-      return NextResponse.json({ error: "Ukuran file maksimal 5MB" }, { status: 400 });
+    // Validate size (10MB)
+    if (file.size > 10 * 1024 * 1024) {
+      return NextResponse.json({ error: "Ukuran file maksimal 10MB" }, { status: 400 });
     }
 
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
 
-    // Create unique filename
-    const ext = file.name.split(".").pop() ?? "jpg";
-    const filename = `${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
-    const uploadDir = path.join(process.cwd(), "public", "uploads");
+    // Upload to Cloudinary via buffer stream
+    const url = await new Promise<string>((resolve, reject) => {
+      const stream = cloudinary.uploader.upload_stream(
+        { folder: "awsm-group", resource_type: "image" },
+        (error, result) => {
+          if (error || !result) return reject(error);
+          resolve(result.secure_url);
+        }
+      );
+      stream.end(buffer);
+    });
 
-    // Ensure directory exists
-    await mkdir(uploadDir, { recursive: true });
-
-    const filePath = path.join(uploadDir, filename);
-    await writeFile(filePath, buffer);
-
-    return NextResponse.json({ url: `/uploads/${filename}` });
+    return NextResponse.json({ url });
   } catch (err) {
     console.error("Upload error:", err);
     return NextResponse.json({ error: "Upload gagal" }, { status: 500 });

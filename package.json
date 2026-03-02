@@ -13,6 +13,7 @@
     "@libsql/client": "^0.17.0",
     "@prisma/adapter-libsql": "^7.4.2",
     "@prisma/client": "^7.4.2",
+    "cloudinary": "^2.9.0",
     "framer-motion": "^12.34.4",
     "iron-session": "^8.0.4",
     "lucide-react": "^0.576.0",
