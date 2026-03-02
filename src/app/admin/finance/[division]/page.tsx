@@ -128,8 +128,7 @@ export default function FinanceDivisionPage() {
     fetchData();
   }
 
-  async function handleToggleStatus(id: string, currentStatus: string) {
-    const newStatus = currentStatus === "lunas" ? "pending" : "lunas";
+  async function handleChangeStatus(id: string, newStatus: string) {
     await fetch(`/api/admin/finance/${id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
@@ -155,7 +154,8 @@ export default function FinanceDivisionPage() {
     receivable: byType("receivable").reduce((s, t) => s + t.amount, 0),
   };
 
-  const net = total.income + total.receivable - total.expense - total.debt;
+  const saldiKas = total.income - total.expense;
+  const kekayaanBersih = saldiKas + total.receivable - total.debt;
 
   if (!currentDivision) {
     router.replace("/admin/finance");
@@ -352,16 +352,18 @@ export default function FinanceDivisionPage() {
                                   {tx.notes || "—"}
                                 </td>
                                 <td className="px-4 py-3">
-                                  <button
-                                    onClick={() => handleToggleStatus(tx.id, tx.status)}
-                                    className={`px-2.5 py-1 rounded-full text-xs font-semibold transition-colors cursor-pointer ${
+                                  <select
+                                    value={tx.status}
+                                    onChange={(e) => handleChangeStatus(tx.id, e.target.value)}
+                                    className={`text-xs font-semibold rounded-full px-2.5 py-1 border-0 outline-none cursor-pointer appearance-none text-center transition-colors ${
                                       tx.status === "lunas"
-                                        ? "bg-emerald-100 text-emerald-700 hover:bg-emerald-200"
-                                        : "bg-yellow-100 text-yellow-700 hover:bg-yellow-200"
+                                        ? "bg-emerald-100 text-emerald-700"
+                                        : "bg-yellow-100 text-yellow-700"
                                     }`}
                                   >
-                                    {tx.status === "lunas" ? "Lunas" : "Pending"}
-                                  </button>
+                                    <option value="pending">Pending</option>
+                                    <option value="lunas">Lunas</option>
+                                  </select>
                                 </td>
                                 <td className={`px-4 py-3 text-right font-semibold whitespace-nowrap ${cfg.color}`}>
                                   {cfg.sign > 0 ? "+" : "-"}{fmt(tx.amount)}
@@ -399,6 +401,8 @@ export default function FinanceDivisionPage() {
               <p className="text-xs font-semibold tracking-widest text-zinc-400 uppercase mb-5">
                 Ringkasan Keuangan
               </p>
+
+              {/* 4 type totals */}
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
                 {(["income", "expense", "debt", "receivable"] as TxType[]).map((type) => {
                   const cfg = TYPE_CONFIG[type];
@@ -415,30 +419,63 @@ export default function FinanceDivisionPage() {
                 })}
               </div>
 
-              {/* Net Total */}
-              <div
-                className={`rounded-xl p-5 flex items-center justify-between ${
-                  net >= 0
-                    ? "bg-emerald-50 border border-emerald-200"
-                    : "bg-red-50 border border-red-200"
-                }`}
-              >
-                <div>
-                  <p className="text-xs font-semibold text-zinc-500 mb-1">
-                    Saldo Bersih (Masuk + Piutang − Keluar − Hutang)
-                  </p>
-                  <p className="text-xs text-zinc-400">
-                    {fmt(total.income)} + {fmt(total.receivable)} − {fmt(total.expense)} − {fmt(total.debt)}
-                  </p>
-                </div>
-                <p
-                  className={`text-2xl md:text-3xl font-bold tracking-tight ${
-                    net >= 0 ? "text-emerald-700" : "text-red-700"
+              {/* Two main metric boxes */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {/* Box 1: Saldo Kas Aktif */}
+                <div
+                  className={`rounded-xl p-5 border ${
+                    saldiKas >= 0
+                      ? "bg-emerald-50 border-emerald-200"
+                      : "bg-red-50 border-red-200"
                   }`}
                 >
-                  {net >= 0 ? "+" : ""}
-                  {fmt(net)}
-                </p>
+                  <p className={`text-xs font-bold uppercase tracking-widest mb-1 ${
+                    saldiKas >= 0 ? "text-emerald-600" : "text-red-600"
+                  }`}>
+                    Saldo Kas Aktif
+                  </p>
+                  <p className="text-xs text-zinc-400 mb-3">
+                    Uang Masuk − Uang Keluar
+                  </p>
+                  <p className="text-xs text-zinc-400 mb-1">
+                    {fmt(total.income)} − {fmt(total.expense)}
+                  </p>
+                  <p
+                    className={`text-2xl md:text-3xl font-bold tracking-tight ${
+                      saldiKas >= 0 ? "text-emerald-700" : "text-red-700"
+                    }`}
+                  >
+                    {saldiKas >= 0 ? "+" : ""}{fmt(saldiKas)}
+                  </p>
+                </div>
+
+                {/* Box 2: Kekayaan Bersih */}
+                <div
+                  className={`rounded-xl p-5 border ${
+                    kekayaanBersih >= 0
+                      ? "bg-blue-50 border-blue-200"
+                      : "bg-red-50 border-red-200"
+                  }`}
+                >
+                  <p className={`text-xs font-bold uppercase tracking-widest mb-1 ${
+                    kekayaanBersih >= 0 ? "text-blue-600" : "text-red-600"
+                  }`}>
+                    Kekayaan Bersih
+                  </p>
+                  <p className="text-xs text-zinc-400 mb-3">
+                    Saldo Kas + Piutang − Hutang
+                  </p>
+                  <p className="text-xs text-zinc-400 mb-1">
+                    {fmt(saldiKas)} + {fmt(total.receivable)} − {fmt(total.debt)}
+                  </p>
+                  <p
+                    className={`text-2xl md:text-3xl font-bold tracking-tight ${
+                      kekayaanBersih >= 0 ? "text-blue-700" : "text-red-700"
+                    }`}
+                  >
+                    {kekayaanBersih >= 0 ? "+" : ""}{fmt(kekayaanBersih)}
+                  </p>
+                </div>
               </div>
             </div>
           </div>
