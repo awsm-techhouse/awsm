@@ -20,6 +20,7 @@ export async function POST(req: NextRequest) {
     data: {
       division: body.division,
       type: body.type,
+      status: body.status ?? "pending",
       description: body.description,
       amount: Number(body.amount),
       date: body.date,

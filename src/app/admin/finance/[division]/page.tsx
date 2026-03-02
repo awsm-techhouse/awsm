@@ -21,6 +21,7 @@ interface Transaction {
   id: string;
   division: string;
   type: TxType;
+  status: string;
   description: string;
   amount: number;
   date: string;
@@ -76,6 +77,7 @@ const EMPTY_FORM = {
   amount: "",
   date: new Date().toISOString().split("T")[0],
   notes: "",
+  status: "pending",
 };
 
 function fmt(n: number) {
@@ -123,6 +125,16 @@ export default function FinanceDivisionPage() {
     setSaving(false);
     setAddingType(null);
     setForm(EMPTY_FORM);
+    fetchData();
+  }
+
+  async function handleToggleStatus(id: string, currentStatus: string) {
+    const newStatus = currentStatus === "lunas" ? "pending" : "lunas";
+    await fetch(`/api/admin/finance/${id}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ status: newStatus }),
+    });
     fetchData();
   }
 
@@ -256,6 +268,27 @@ export default function FinanceDivisionPage() {
                             value={form.notes}
                             onChange={(e) => setForm({ ...form, notes: e.target.value })}
                           />
+                          <div className="col-span-1 sm:col-span-2 flex items-center gap-3">
+                            <p className="text-xs text-zinc-500 font-medium">Status:</p>
+                            <div className="flex gap-2">
+                              {(["pending", "lunas"] as const).map((s) => (
+                                <button
+                                  key={s}
+                                  type="button"
+                                  onClick={() => setForm({ ...form, status: s })}
+                                  className={`px-3 py-1 rounded-full text-xs font-semibold transition-colors ${
+                                    form.status === s
+                                      ? s === "lunas"
+                                        ? "bg-emerald-100 text-emerald-700 ring-2 ring-emerald-300"
+                                        : "bg-yellow-100 text-yellow-700 ring-2 ring-yellow-300"
+                                      : "bg-zinc-100 text-zinc-400 hover:bg-zinc-200"
+                                  }`}
+                                >
+                                  {s === "lunas" ? "Lunas" : "Pending"}
+                                </button>
+                              ))}
+                            </div>
+                          </div>
                         </div>
                         <div className="flex gap-2">
                           <button
@@ -294,6 +327,9 @@ export default function FinanceDivisionPage() {
                               <th className="text-left px-4 py-2.5 text-xs font-semibold text-zinc-400 uppercase tracking-wider hidden md:table-cell">
                                 Catatan
                               </th>
+                              <th className="text-left px-4 py-2.5 text-xs font-semibold text-zinc-400 uppercase tracking-wider">
+                                Status
+                              </th>
                               <th className="text-right px-4 py-2.5 text-xs font-semibold text-zinc-400 uppercase tracking-wider">
                                 Jumlah
                               </th>
@@ -314,6 +350,18 @@ export default function FinanceDivisionPage() {
                                 </td>
                                 <td className="px-4 py-3 text-zinc-400 text-xs hidden md:table-cell">
                                   {tx.notes || "—"}
+                                </td>
+                                <td className="px-4 py-3">
+                                  <button
+                                    onClick={() => handleToggleStatus(tx.id, tx.status)}
+                                    className={`px-2.5 py-1 rounded-full text-xs font-semibold transition-colors cursor-pointer ${
+                                      tx.status === "lunas"
+                                        ? "bg-emerald-100 text-emerald-700 hover:bg-emerald-200"
+                                        : "bg-yellow-100 text-yellow-700 hover:bg-yellow-200"
+                                    }`}
+                                  >
+                                    {tx.status === "lunas" ? "Lunas" : "Pending"}
+                                  </button>
                                 </td>
                                 <td className={`px-4 py-3 text-right font-semibold whitespace-nowrap ${cfg.color}`}>
                                   {cfg.sign > 0 ? "+" : "-"}{fmt(tx.amount)}

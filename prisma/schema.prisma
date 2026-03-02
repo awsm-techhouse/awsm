@@ -36,6 +36,7 @@ model Transaction {
   id          String   @id @default(cuid())
   division    String   // event-organizer | digital-agency | tech-house
   type        String   // income | expense | debt | receivable
+  status      String   @default("pending") // pending | lunas
   description String
   amount      Float
   date        String
