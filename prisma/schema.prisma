@@ -1,0 +1,33 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model PortfolioItem {
+  id            String   @id @default(cuid())
+  division      String   // event-organizer | digital-agency | tech-house
+  title         String
+  titleEn       String
+  client        String
+  category      String
+  categoryEn    String
+  year          String
+  description   String
+  descriptionEn String
+  coverImage    String   @default("")
+  images        String   @default("[]") // JSON array of image URLs
+  tags          String   @default("[]") // JSON array of tag strings
+  featured      Boolean  @default(false)
+  published     Boolean  @default(true)
+  ctaEnabled    Boolean  @default(false)
+  ctaLabel      String   @default("")
+  ctaLabelEn    String   @default("")
+  ctaUrl        String   @default("")
+  order         Int      @default(0)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}

@@ -1,0 +1,25 @@
+-- CreateTable
+CREATE TABLE "PortfolioItem" (
+    "id" TEXT NOT NULL PRIMARY KEY,
+    "division" TEXT NOT NULL,
+    "title" TEXT NOT NULL,
+    "titleEn" TEXT NOT NULL,
+    "client" TEXT NOT NULL,
+    "category" TEXT NOT NULL,
+    "categoryEn" TEXT NOT NULL,
+    "year" TEXT NOT NULL,
+    "description" TEXT NOT NULL,
+    "descriptionEn" TEXT NOT NULL,
+    "coverImage" TEXT NOT NULL DEFAULT '',
+    "images" TEXT NOT NULL DEFAULT '[]',
+    "tags" TEXT NOT NULL DEFAULT '[]',
+    "featured" BOOLEAN NOT NULL DEFAULT false,
+    "published" BOOLEAN NOT NULL DEFAULT true,
+    "ctaEnabled" BOOLEAN NOT NULL DEFAULT false,
+    "ctaLabel" TEXT NOT NULL DEFAULT '',
+    "ctaLabelEn" TEXT NOT NULL DEFAULT '',
+    "ctaUrl" TEXT NOT NULL DEFAULT '',
+    "order" INTEGER NOT NULL DEFAULT 0,
+    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" DATETIME NOT NULL
+);
