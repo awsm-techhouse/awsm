@@ -23,6 +23,12 @@ const divisionItems = [
   { href: "/admin/portfolio?division=tech-house", label: "Tech House", icon: Cpu },
 ];
 
+const financeItems = [
+  { href: "/admin/finance/event-organizer", label: "Event Organizer", icon: Megaphone },
+  { href: "/admin/finance/digital-agency", label: "Digital Agency", icon: Globe },
+  { href: "/admin/finance/tech-house", label: "Tech House", icon: Cpu },
+];
+
 export default function AdminSidebar() {
   const pathname = usePathname();
   const router = useRouter();
@@ -84,6 +90,27 @@ export default function AdminSidebar() {
             {label}
           </Link>
         ))}
+
+        <p className="px-3 text-[10px] font-semibold tracking-widest text-white/30 uppercase mt-6 mb-3">
+          Keuangan
+        </p>
+        {financeItems.map(({ href, label, icon: Icon }) => {
+          const active = pathname.startsWith(href);
+          return (
+            <Link
+              key={href}
+              href={href}
+              className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all ${
+                active
+                  ? "bg-white text-black"
+                  : "text-white/60 hover:text-white hover:bg-white/10"
+              }`}
+            >
+              <Icon size={16} />
+              {label}
+            </Link>
+          );
+        })}
 
         <p className="px-3 text-[10px] font-semibold tracking-widest text-white/30 uppercase mt-6 mb-3">
           Website
