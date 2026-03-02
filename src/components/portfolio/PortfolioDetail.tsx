@@ -150,7 +150,7 @@ export default function PortfolioDetail({ item }: PortfolioDetailProps) {
             transition={{ duration: 0.6, delay: 0.3 }}
             className="md:col-span-2"
           >
-            className="text-base md:text-xl lg:text-2xl text-black/70 leading-relaxed font-light"
+            <p className="text-base md:text-xl lg:text-2xl text-black/70 leading-relaxed font-light">
               {description}
             </p>
           </motion.div>
