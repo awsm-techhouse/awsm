@@ -2,6 +2,8 @@ import DivisionPageLayout from "@/components/layout/DivisionPageLayout";
 import { divisions } from "@/lib/data";
 import { getPortfolioByDivision } from "@/lib/portfolio";
 
+export const dynamic = "force-dynamic";
+
 const division = divisions.find((d) => d.id === "event-organizer")!;
 
 export default async function EventOrganizerPage() {
