@@ -33,7 +33,7 @@ export default function PortfolioDetail({ item }: PortfolioDetailProps) {
     <main className="bg-white min-h-screen pt-16">
       {/* Hero */}
       <div
-        className={`w-full aspect-[21/9] relative overflow-hidden ${
+        className={`w-full aspect-[4/3] sm:aspect-video md:aspect-[21/9] relative overflow-hidden ${
           item.coverImage ? "" : `bg-gradient-to-br ${gradients[0]}`
         }`}
       >
@@ -50,13 +50,13 @@ export default function PortfolioDetail({ item }: PortfolioDetailProps) {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="absolute bottom-0 left-0 right-0 p-8 md:p-16"
+            className="absolute bottom-0 left-0 right-0 p-5 sm:p-8 md:p-16"
         >
           <div className="max-w-7xl mx-auto">
             <span className="text-xs font-semibold tracking-widest text-white/60 uppercase">
               {divisionLabels[item.division]} · {category}
             </span>
-            <h1 className="text-4xl md:text-6xl font-bold text-white leading-tight tracking-tight mt-3">
+            <h1 className="text-2xl sm:text-4xl md:text-6xl font-bold text-white leading-tight tracking-tight mt-3">
               {title}
             </h1>
           </div>
@@ -150,7 +150,7 @@ export default function PortfolioDetail({ item }: PortfolioDetailProps) {
             transition={{ duration: 0.6, delay: 0.3 }}
             className="md:col-span-2"
           >
-            <p className="text-xl md:text-2xl text-black/70 leading-relaxed font-light">
+            className="text-base md:text-xl lg:text-2xl text-black/70 leading-relaxed font-light"
               {description}
             </p>
           </motion.div>

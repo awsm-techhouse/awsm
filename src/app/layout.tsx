@@ -18,6 +18,10 @@ export const metadata: Metadata = {
     description: "Creative & Technology Business Ecosystem",
     type: "website",
   },
+  icons: {
+    icon: "/logo.png",
+    apple: "/logo.png",
+  },
 };
 
 export default function RootLayout({

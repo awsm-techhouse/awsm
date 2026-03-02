@@ -29,7 +29,7 @@ export default function Divisions() {
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.1 }}
-          className="text-5xl md:text-7xl font-bold text-white leading-tight tracking-tight mb-20 whitespace-pre-line"
+          className="text-3xl sm:text-4xl md:text-7xl font-bold text-white leading-tight tracking-tight mb-12 md:mb-20 whitespace-pre-line"
         >
           {t("divisions.title")}
         </motion.h2>

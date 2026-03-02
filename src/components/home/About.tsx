@@ -34,7 +34,7 @@ export default function About() {
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.1 }}
-          className="text-5xl md:text-7xl font-bold text-black leading-tight tracking-tight mb-8 whitespace-pre-line"
+          className="text-3xl sm:text-4xl md:text-7xl font-bold text-black leading-tight tracking-tight mb-8 whitespace-pre-line"
         >
           {t("about.title")}
         </motion.h2>
@@ -59,7 +59,7 @@ export default function About() {
               transition={{ duration: 0.6, delay: 0.3 + i * 0.1 }}
               className="bg-white p-8 md:p-10"
             >
-              <div className="text-5xl md:text-6xl font-bold text-black tracking-tight mb-3">
+              <div className="text-3xl sm:text-4xl md:text-6xl font-bold text-black tracking-tight mb-3">
                 {stat.value}
               </div>
               <div className="text-sm text-black/50 leading-snug whitespace-pre-line">

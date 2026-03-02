@@ -28,7 +28,7 @@ export default function Contact() {
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.1 }}
-          className="text-5xl md:text-8xl font-bold text-black leading-tight tracking-tight mb-6"
+          className="text-3xl sm:text-5xl md:text-8xl font-bold text-black leading-tight tracking-tight mb-6"
         >
           {t("contact.title")}
         </motion.h2>
@@ -37,7 +37,7 @@ export default function Contact() {
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="text-xl text-black/50 max-w-lg mb-16"
+          className="text-base md:text-xl text-black/50 max-w-lg mb-10 md:mb-16"
         >
           {t("contact.subtitle")}
         </motion.p>
@@ -59,7 +59,9 @@ export default function Contact() {
               <div className="flex flex-col gap-4">
                 {/* Phone */}
                 <a
-                  href={`tel:${t(`contact.${div}.phone`).replace(/[\s-]/g, "")}`}
+                  href={`https://wa.me/${t(`contact.${div}.phone`).replace(/[\s\-+()]/g, "")}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="flex items-center gap-3 group"
                 >
                   <span className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center flex-shrink-0 group-hover:bg-white/20 transition-colors">

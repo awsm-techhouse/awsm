@@ -9,6 +9,7 @@ import PortfolioCard from "@/components/portfolio/PortfolioCard";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import { ArrowUpRight } from "lucide-react";
+import Contact from "@/components/home/Contact";
 
 interface DivisionPageLayoutProps {
   division: DivisionInfo;
@@ -30,7 +31,7 @@ export default function DivisionPageLayout({
   return (
     <>
       <Navbar />
-      <main className="bg-white min-h-screen">
+      <main className="bg-white min-h-screen overflow-x-hidden">
         {/* Hero */}
         <section className="bg-black min-h-[70vh] flex flex-col justify-end pb-20 px-6 lg:px-8 pt-32 relative overflow-hidden">
           {/* Background texture */}
@@ -72,7 +73,7 @@ export default function DivisionPageLayout({
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="text-5xl md:text-7xl lg:text-8xl font-bold text-white leading-none tracking-tight mb-6"
+              className="text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-bold text-white leading-none tracking-tight mb-6"
             >
               {division.name}
             </motion.h1>
@@ -94,7 +95,7 @@ export default function DivisionPageLayout({
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.1 }}
-            className="text-xl md:text-2xl text-black/60 max-w-3xl leading-relaxed font-light"
+            className="text-base md:text-xl lg:text-2xl text-black/60 max-w-3xl leading-relaxed font-light"
           >
             {description}
           </motion.p>
@@ -129,6 +130,9 @@ export default function DivisionPageLayout({
             </div>
           )}
         </section>
+
+        {/* Contact */}
+        <Contact />
 
         {/* CTA to other divisions */}
         <section className="bg-black py-20 px-6 lg:px-8">
