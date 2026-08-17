@@ -28,6 +28,8 @@ export default function PortfolioDetail({ item }: PortfolioDetailProps) {
     "digital-agency": "AWSM Digital Agency",
     "tech-house": "AWSM Tech House",
   };
+  const backHref =
+    item.division === "tech-house" ? "/tech-house/portofolio" : `/${item.division}`;
 
   return (
     <main className="bg-white min-h-screen pt-16">
@@ -73,7 +75,7 @@ export default function PortfolioDetail({ item }: PortfolioDetailProps) {
           className="mb-12"
         >
           <Link
-            href={`/${item.division}`}
+            href={backHref}
             className="inline-flex items-center gap-2 text-sm font-medium text-black/50 hover:text-black transition-colors group"
           >
             <ArrowLeft

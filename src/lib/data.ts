@@ -28,12 +28,12 @@ export const divisions: DivisionInfo[] = [
   {
     id: "tech-house",
     name: "AWSM Tech House",
-    tagline: "Teknologi untuk Masa Depan",
-    taglineEn: "Technology for the Future",
+    tagline: "Digital and Tech Solution untuk Bisnis",
+    taglineEn: "Digital and Tech Solutions for Business",
     description:
-      "Kami mengembangkan solusi teknologi inovatif — mulai dari aplikasi mobile, web platform, hingga sistem enterprise yang scalable. Inovasi adalah DNA kami.",
+      "Kami menghadirkan layanan digital and tech solution end-to-end: pengembangan website, aplikasi, UI/UX, integrasi sistem, automation, hingga maintenance.",
     descriptionEn:
-      "We develop innovative technology solutions — from mobile apps and web platforms to scalable enterprise systems. Innovation is our DNA.",
+      "We deliver end-to-end digital and tech solutions: website and app development, UI/UX, system integration, automation, and maintenance.",
     color: "#1a1a1a",
     href: "/tech-house",
   },
